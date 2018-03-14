@@ -44,3 +44,16 @@ The goal of a sign test is to make sure that a metric that isn't supposed to cha
 	
 * 评估指标：它是评价试验或者变更效果的一个指标	
 [设计 AB Test | Hexo](http://lilyalove.com/2017/08/04/AB-test-design/#%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87)
+
+# 为什么使用 Z 检验而非 T 检验
+从分析统计显著性的过程来看，这是一个独立双样本的分析才是正确的。查询了一下，提示原因是因为样本容量——t 检验不能对样本容量超过 30 的进行分析，但是并没有找到正式说明。
+
+>根本上来说，是因为当样本容量较大时，可以通过样本来对总体进行无偏估计。在试验中，样本容量都比较大，所以可以看作知道了总体的参数。而 t 检验是对不知道总体相关参数进行分析的
+>
+
+# 统计显著性和实际显著性可视化
+
+课程中 Lesson 1 第 22 节中 在 1 分 11 秒左右，不太明白它是怎么看这个分布图表达的意思的。另外在网上查询到 ${H_0}$ 和 ${H_A}$ 的分布图是一种正太分布形式——[Understanding Statistical Power and Significance Testing — an Interactive Visualization](http://rpsychologist.com/d3/NHST/)，它是以什么理论基础来确定这个 ${H_0}$ 和 ${H_A}$ 的分布呢？尚未找到相关说明
+
+> 图形中的正太分布并非是以 ${H_0}$ 和 ${H_A}$ 做的分布图，其实是对控制组和对照组进行了一个分布情况说明——针对两者的分布情况演示说明了 ${\alpha}$ ,${\beta}$ 等值影响。
+
