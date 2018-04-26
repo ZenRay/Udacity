@@ -17,3 +17,6 @@ SELECT *
 	FROM orders
 WHERE CAST(occurred_at as varchar(10)) like '2016%';
 ```
+
+## 2 使用不同 JOIN 图解
+[图解SQL的Join | | 酷 壳 - CoolShell](https://coolshell.cn/articles/3463.html)
