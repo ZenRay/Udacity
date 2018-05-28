@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style type="text/css">
+    svg {
+      border: 1px solid lightgrey;
+    }
+  .axis {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispedges;
+  }
+
+  .axis text {
+    font-size: x-small;
+    font-weight: 100;
+  }
+
+  </style>
+
+<!-- <script src="d3.v3.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+  const
+
+
+</script>
+<a href=""></a>
+
+
+
+  <script type="text/javascript">
+    var svgWidth = 500, svgHeight = 500, padding = 20;
+    var colors = d3.scale.category10();
+
+    var svg = d3.select('body').append('svg')
+                  .attr({width: svgWidth, height: svgHeight});
+
+    /*
+     *----------------------
+    */
+
+
+    var newDataset = [1,2,3,4,5];
+
+
+    // 此时仅仅利用 .data(newDataset) 更新选择集的数据
+    var update = d3.selectAll('circle').data(newDataset)
+
+    console.log('update:', update); // 数组长度为 5 的选择集
+    console.log('circles:', d3.selectAll('circle')); // 结果为 0，因为此时还没有添加 circle 元素
+
+
+    // enter 的作用是，对比 svg 元素数量 与 数据数量，
+    // 如果数据比元素多，那么就返回元素的占位符，这样就可以只添加新增的数据的元素，而不必全部重新添加
+    var enter = update.enter()
+    console.log('enter:', enter); // 返回数组长度为 5 的选择集，之所以为 5 是因为之前我们还没在 svg 画布上添加任何 svg 子元素
+
+    // 与 enter 类似的，exit 表示网页元素没有存在于现在的数据中，一般用来删除与新数据不符的 svg 元素
+    var exit = update.exit()
+    console.log('exit:', exit);  // 为 0
+
+
+
+  </script>
+</body>
+</html>
