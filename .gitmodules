@@ -1,0 +1,3 @@
+[submodule "Note"]
+	path = Note
+	url = git@github.com:ZenRay/Udanote.git
