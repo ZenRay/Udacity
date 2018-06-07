@@ -80,3 +80,6 @@ print(result.summary2())
 	1. [Simple statements](https://docs.python.org/3.6/reference/simple_stmts.html#the-return-statement)
 	2. [Yield Expressions](https://docs.python.org/3.6/reference/expressions.html#yieldexpr)
 	3. [协程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/0013868328689835ecd883d910145dfa8227b539725e5ed000)
+
+# 具有数据值的字符串转换—— `eval` 使用
+该方法是对那类将数据值、数据表达式以及其他数据类型数据被字符串包裹时，可以使用该方法进行数据转换。⚠️注意某些字符串转换会报错：对于某些 `Identifer` 如果没有使用另外的引号包裹可能报错——`eval("{'a':false}")`、`eval("{'b':null}")`等可能出现报 `NameError` 错误。解决方式时对相应的数据添加引号（强制变更为字符串）——`eval("{'a':'false'}")`、`eval("{'b':'null'}")`
