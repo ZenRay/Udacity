@@ -1,6 +1,6 @@
 **目录**
 
-[TOC]
+#### 
 
 课程是 `Udacity` 中 `Java OOP(ud283)` 的课程，课程的主题涉及到 `Java` 的高级知识：
 
@@ -264,5 +264,131 @@ public static void main(String [] args){
   }
   ```
 
+  下面是练习中的示例：
+
+  ```java
+  class Contact{
+     String name;
+     String email;
+     String phoneNumber;
+  }
+  // 创建一个默认构造函数，用于初始化这些字段
+  class ContactsManager {
+     // Fields:
+     Contact [] myFriends;
+     int friendsCount;
+     // Constructor:
+     ContactsManager(){
+        this.friendsCount = 0;
+        this.myFriends = new Contact[500];
+     }
+     // Methods:
+     // 添加联系人 addContact 会接收 Contact 对象作为输入参数，并使用 friendsCount 值向数组中的该位置填充传入该方法的联系人
+     void addContact(Contact contact){
+        myFriends[friendsCount] = contact;
+        friendsCount++;
+     }
+  
+     Contact searchContact(String searchName){
+        for(int i=0; i<friendsCount; i++){
+           if(myFriends[i].name.equals(searchName)){
+              return myFriends[i];
+           }
+        }
+        return null;
+     }
+  }
+  // 需要 main 方法，因此创建另一个叫做 Main 的类，用于存储该方法。这意味着一旦该程序运行了，主方法将启动，并创建 ContactManager 对象 myContactManager，从而能够被使用
+  class Main {
+     public static void main(String [] args){
+        ContactManager myContactManager = new ContactManager();
+     }
+  }
+  ```
+
   
 
+### 1.4.5 访问修饰符
+
+访问修饰符的方法可以用于避免程序错误。其中包括可以使用 `public` 和 `private` 修饰符：
+
+1. `public` 修饰符：表示其他类也可以使用该字段或者该方法
+2. `private` 修饰符：表示隐藏字段或者方法于该程序内
+
+以上两种方法，表示了使用权限。
+
+```java
+public int score;	// 表示该字段是 public
+private String password;	// 表示该字段为 private
+
+public class Book{
+    private String title;
+    private String author;
+    public boolean isBorrowed;
+    public Book(String title, String author){
+        this.title = title;
+        this.author = author;
+    }
+}
+```
+
+上面的类 Book 表示书籍作者和标题不可私有的，不可以变化，但是是否外借的状态可以为变化的值。但是实际上还是存在风险，如果需要检查是否为 true 或者 false 的状态时，出现将结果更改为 true 的错误！通过将该字段设置为 `private`，然后创建并返回此类隐藏字段的  `public` 方法，以及提供设置和更改其值的 `public` 方法。下面的方法，将 `isBorrowed` 字段设为 `private` 将阻止在代码的某个位置不小心更改其值，因为现在更改它的唯一方法是调用 `borrowBook()` 或 `returnBook()`，这样会明显的多。为了能够读取 `isBorrowed` 的值，创建一个叫做 `isBookBorrowed()` 的 getter 方法，该方法是 `public` 并返回 `isBorrowed` 的值
+
+```java
+public class Book{
+   private String title;
+   private String author;
+   private boolean isBorrowed;
+   public Book(String title, String author){
+      this.title = title;
+      this.author = author;
+   }
+   public void borrowBook(){
+      isBorrowed = true;
+   }
+   public void returnBook(){
+      isBorrowed = false;
+   }
+   public boolean isBookBorrowed(){
+      return isBorrowed;
+   }
+}
+```
+
+方法中使用 `private` 和 `public` ，`private` 方法通常称之为 **helper 方法**，因为它们只能被相同的类看到和调用，它们通常是为了帮助整理代码并使代码看起来更简单易读。`public` 方法是类可以执行的实际操作，基本上是程序的剩余部分能够看到和调用的方法。
+
+下面的例子中，类 Person 将它的两个字段都设成了 `private`，因为如果是 `public`，那么任何其他类都将能够更改此类敏感信息。将它们设为 `private` 意味着只有该类里面的方法和构造函数能够更改它！方法 `getId()` 也被设成了 `private`，这样其他类都不知道此人的社会保障号码。
+
+但是，当我们在 `isSamePerson(Person p)` 方法中将此人与其他 person 对象对比时，依然能在内部使用该方法。这意味着任何其他类只能调用 `getUserName` 或 `isSamePerson`，看起来似乎类 Person 仅提供了这两个方法。
+
+```java
+class Person{
+   private String userName;
+   private String SSN;
+   private String getId(){
+      return SSN + "-" + userName;
+   }
+   public String getUserName(){
+      return userName;
+   }
+   public boolean isSamePerson(Person p){
+      if(p.getId().equals(this.getId()){
+         return true;
+      }
+      else{
+         return false;
+      } 
+   }
+}
+```
+
+总结及其他建议：
+
+- 始终尝试将所有字段声明为 **private**
+- 创建一个将这些 `private` 字段当做输入的构造函数
+- 创建一个***设置***每个 `private` 字段的 `public` 方法，这样你就知道何时更改了字段。这些方法叫做 **setter**
+- 创建一个***返回***每个 `private` 字段的 `public` 方法，这样你就能够读取该字段，而不会不小心更改了它。这些方法叫做 **getter**
+- 将所有类设为 **public**
+- 将所有字段设为 **private**
+- 将所有当做操作的方法设为 **public**
+- 将所有当做辅助方法的方法设为 **private**
