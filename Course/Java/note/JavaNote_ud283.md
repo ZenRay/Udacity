@@ -392,3 +392,92 @@ class Person{
 - 将所有字段设为 **private**
 - 将所有当做操作的方法设为 **public**
 - 将所有当做辅助方法的方法设为 **private**
+
+## 2. 用户交互
+
+### 2.1常用交互
+
+交互的一个方面是需要用户输入信息，在 Java 中用户的输入需要使用 `Scanner` 类来完成。首先它需要在文件顶部调用 `import java.util.Scanner;` 语句——表示调用 `java.util` 库中的 `Scanner` 类。`Scanner` 允许程序读取来自特定输入的任何数据类型，需要先创建 scanner 对象，之后将 scanner 读取系统的输入。在该 scanner 对象中调用方法 `nextLine()` 将返回一个 String，其中包含用户在按下"enter”前输入的所有内容。例子如下
+
+```python
+import java.util.Scanner;
+
+System.out.println("Enter your address");
+// 实例化 Scanner
+Scanner scanner = new Scanner(System.in);
+String address = scanner.nexLine();		// 这里的申明变量类型，说明了 address 的数据类型；同时使用 scanner 不同方法来表示输入内容
+
+System.out.println("You live at:" + address);
+
+int grade = scanner.nextInt();		// 申明为整数型数据
+
+if(grade > 90){
+    System.out.println("wow! you did well!");
+}else{
+    System.out.println("Not bad, but you can do better next time!");
+}
+```
+
+上面的方法是在终端输入数据，而 Java 可以通过文件的方式来交互——这类文件可能是纯文本编辑器、Excel 表格等。需要注意的是，`Scanner` 类传入的参数不是 System.in，而是 File 对象
+
+```java
+import java.io.File;
+import java.utile.Scanner;
+
+File file = new File("expenses.txt");
+Scanner filescanner = new Scanner(file);
+
+while (scanner.hasNextLine()){
+    String scanner = scanner.nexLine();
+}
+```
+
+### 2.2 错误和异常
+
+常见的异常包括了 `Syntax Errors`， `RuntimeErrors`，`Bugs(Logic Errors)`:
+
+1. `Syntax Erros`：包括是否符合语法；以及代码是否可以编译
+2. `Runtime Errors`：程序崩溃；通常发生在程序运行中
+3. `Bugs(Logic Erros)`：程序不符合预期结果
+
+对于异常来说，可以通过 `throws` 语句来控制异常传递；另外可以使用 `try` 语句来控制和捕获异常
+
+```
+voind main(String [] args) throws Exception {
+    openFile();
+}
+
+// 下面是第二种方法
+void openFile() throws Exception {
+    File file = new File("somefile.txt");
+}
+
+try{
+    openFIle ("somefile.txt");
+} catch (FileNotFoundException e) {
+    // handle the exception
+    // or re-throw it
+    System.out.println("File missing!");
+    
+    throw e;	// 这样抛出了异常
+}
+
+// 下面的语句可以捕获所有异常
+try{
+   openFile("somefile.txt");
+   array[index]++;
+} catch(Exception exception) {
+   // Handle all the possible exceptions here
+} 
+
+// 下面使用多个捕获语句，这样可以进行不同的处理
+try{
+   openFile("somefile.txt");
+   array[index]++;
+} catch(FileNotFoundException exception) {
+   // Handle all the possible file-not-found-related issues here
+} catch(IndexOutOfBoundsException exception) {
+   // Handle all the possible index-out-of-bounds-related issues here
+} 
+```
+
