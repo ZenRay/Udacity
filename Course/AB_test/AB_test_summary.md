@@ -2,7 +2,7 @@
 
 因此本次根据课程内容，网上查阅的相关资料对 AB 测试的流程进行一个梳理。同时在最后将统计学方面中较难理解的部分，进行一个梳理，提供一个可行的切入角度。
 
-[toc]
+[TOC]
 
 ## AB 测试的流程
 在明白 AB 测试的流程之前，需要先从 AB 测试是什么和为什么使用的角度进行说明。简单来说 **AB 测试**就是为了验证在先验条件的存在的情况下，进行新的变更是否合理和可行以达到优化的目的。使用 AB 测试的方式能能够度量变更对某些指标的变化，是变更更具有合理性依据更充分。
@@ -92,15 +92,14 @@ AB 测试的目的就是为了验证变更是否可行，但是在试验过程�
 在进行显著分析之前，需要分析指标的分组单元和分析单元是否一致${^{[10]}}$——当两者一致时说明分析方差和实证方差匹配。显著性分析主要包括统计学显著性分析和实际显著性分析，下面对两者分别说明：
 
 * 统计显著性 `Statistics Significance`
-	
-	统计显著性分析是针对评估指标的分析，为了检验试验组和对照组中产生了差异性。在试验中，零和假设为试验组和对照组之间概率没有差异性即 ${\hat{d}=\hat{p_{exp}}-\hat{p_{contr}}=0}$；备选假设两者概率存在差异。如果利用差异值 ${\hat{d}}$ 计算相应的置信区间，假设区间内不包括 ${0}$，说明两者具有统计显著性，那么就可以拒绝接受零和假设；反之，则不可以拒绝零和假设。分析过程是基于双样本差异分析，具体过程如下：
-	
-	* **差异值**：`Difference`, ${\hat{d}=\hat{p_{exp}}-\hat{p_{contr}}}$
-	* **合并概率**：`Pool Probability` 指试验组和对照组中发生发生占总体的概率 ${p_{pool}=\frac{x_{cont}+x_{exp}}{n_{contr}+n_{exp}}}$
-	*  **合并标准差**：`Pool Standard Error`，一般合并方差的计算使用合并标准偏差来计算，公式是 ${SE_{pool}=\sqrt{SD_{pool}^2/n_{contr}+SD_{pool}^2/n_{exp}}}$，该公式中 ${SD_{pool}=\sqrt{p_{pool}*(1-p_{pool})}}$
-	*  **边际值**: `Margin`，${margin=SE_{pool}*z^*}$
-	*  **置信区间**：`Confidence Interval`，${CI\in[\hat{d}-margin,\ \hat{d}+margin]}$
-	
+
+  统计显著性分析是针对评估指标的分析，为了检验试验组和对照组中产生了差异性。在试验中，零和假设为试验组和对照组之间概率没有差异性即 ${\hat{d}=\hat{p_{exp}}-\hat{p_{contr}}=0}$；备选假设两者概率存在差异。如果利用差异值 ${\hat{d}}$ 计算相应的置信区间，假设区间内不包括 ${0}$，说明两者具有统计显著性，那么就可以拒绝接受零和假设；反之，则不可以拒绝零和假设。分析过程是基于双样本差异分析，具体过程如下：
+
+  * **差异值**：`Difference`, ${\hat{d}=\hat{p_{exp}}-\hat{p_{contr}}}$
+  * **合并概率**：`Pool Probability` 指试验组和对照组中发生发生占总体的概率 ${p_{pool}=\frac{x_{cont}+x_{exp}}{n_{contr}+n_{exp}}}$
+  *  **合并标准差**：`Pool Standard Error`，一般合并方差的计算使用合并标准偏差来计算，公式是 ${SE_{pool}=\sqrt{SD_{pool}^2/n_{contr}+SD_{pool}^2/n_{exp}}}$，该公式中 ${SD_{pool}=\sqrt{p_{pool}*(1-p_{pool})}}$
+  *  **边际值**: `Margin`，${margin=SE_{pool}*z^*}$
+  *  **置信区间**：`Confidence Interval`，${CI\in[\hat{d}-margin,\ \hat{d}+margin]}$
 
 * 实际显著性 `Practical Significance`
 
@@ -115,11 +114,11 @@ AB 测试的目的就是为了验证变更是否可行，但是在试验过程�
 2. **敏感性** 和 **稳健性**：即 sensitivity 以及 robustness，他们用于评价指标是否可用的一个参考。一般可以通过以下方式进行测量：i)使用 AA 测试；ii）回顾性分析（retrospective analysis）。一般来说这两者是逆相关，所以对于两者需要一个合适的平衡
 
 3. 三者统计学解释，可以参考 [${\alpha}$ 和 ${\beta}$](http://www.appadhoc.com/blog/alpha-beta-statics-ab-test/)，以及[如何理解统计学中的 Power ](http://songchunlin.net/cn/2014/04/statistical-power/)：
-	* **显著性水平**：在统计学假设试验中，${\alpha}$ 表示了在零和假设 ${H_0}$ 是真的情况下，发生拒绝 ${H_0}$ 的概率；是判断发生 ${Type\ Error\ I}$ (即 ${P_{reject\ null\ hypothesis|true\ null\ hypothesis}}$) 的概率。通过 ${\alpha}$ 可以计算出置信水平（ ${Confidence\ Level=1-\alpha}$ ）
-	
-	* **统计功效**：其统计学定义是零和假设 ${H_0}$ 错误的情况下，成功拒绝 ${H_0}$ 的概率（即 ${P_{reject\ null\ hypothesis|false\ null\ hypothesis}}$）。这里涉及到另一个术语 ${\beta}$，它和统计功效的关系是 ${\beta=1-statistics\ power}$，是判断发生 ${Type\ Error\ II}$ (即 ${P_{not\ reject\ null\ hypothesis|false\ null\ hypothesis}}$) 的概率
-	* **实际显著性**：在 AB 测试中，该显著性主要是基于商业角度等方面考量，用于判断在变更带来多大的变化量的时候可以实施变更。一般是试验结合实际，进行设定的 ${d_{min}}$
-	
+  * **显著性水平**：在统计学假设试验中，${\alpha}$ 表示了在零和假设 ${H_0}$ 是真的情况下，发生拒绝 ${H_0}$ 的概率；是判断发生 ${Type\ Error\ I}$ (即 ${P_{reject\ null\ hypothesis|true\ null\ hypothesis}}$) 的概率。通过 ${\alpha}$ 可以计算出置信水平（ ${Confidence\ Level=1-\alpha}$ ）
+
+  * **统计功效**：其统计学定义是零和假设 ${H_0}$ 错误的情况下，成功拒绝 ${H_0}$ 的概率（即 ${P_{reject\ null\ hypothesis|false\ null\ hypothesis}}$）。这里涉及到另一个术语 ${\beta}$，它和统计功效的关系是 ${\beta=1-statistics\ power}$，是判断发生 ${Type\ Error\ II}$ (即 ${P_{not\ reject\ null\ hypothesis|false\ null\ hypothesis}}$) 的概率
+  * **实际显著性**：在 AB 测试中，该显著性主要是基于商业角度等方面考量，用于判断在变更带来多大的变化量的时候可以实施变更。一般是试验结合实际，进行设定的 ${d_{min}}$
+
 4. 样本容量对统计学分析的时候，对显著性分析，统计功效的影响可以参见可视化模型[Understanding Statistical Power and Significance Testing ](http://rpsychologist.com/d3/NHST/)
 
 5. 对三种常用的分流对象来说，需要从三个角度去考量：1）作引流单元是否影响用户体验一致性；2）变更是否明显直接呈现在用户面前，例如后端服务器变化；3）分析评估中是否需要考虑用户行为作为分析角度。对于三个角度都是否定的角度，那么可以参考使用 `event` 来分流——例如服务器变化测量视频加载时间变更
@@ -130,8 +129,10 @@ AB 测试的目的就是为了验证变更是否可行，但是在试验过程�
 
 8. 该原因的统计学解释，如下：
 
-	${P_{one\ significant\ result}=1-P_{non\ significant\ results}}$，其中 ${P_{non\ significant\ results}}$ 的计算需要结合指标个数： ${P_{non\ significant\ results}=(1-\alpha)^n}$ ，其中 ${n}$ 为指标个数。
-	
+  ${P_{one\ significant\ result}=1-P_{non\ significant\ results}}$，其中 ${P_{non\ significant\ results}}$ 的计算需要结合指标个数： ${P_{non\ significant\ results}=(1-\alpha)^n}$ ，其中 ${n}$ 为指标个数。
+
 9. 这里的基础条件：首先在试验中使用到的总体（Population）是足够大，同时进行分析的样本容量（Sample Size）都是大于 30（因为一般的 ${t}$ 检验的是适用于样本容量较小的试验）。因为样本容量足够大，这里可以假设通过样本几乎可以估计出总体的参数。
 
 10. **分析单元**：它只是在分析某些指标时用到的 **分母**，是分析过程中需要确认每次的事件是否独立。例如：计算点击率指标时，用点击量除以页面查看量，其中分母页面查看量，即是分析单元。
+
+11. [RPubs - A/B Testing - Udacity Course Final Project](https://rpubs.com/Shaahin/ab-test-udacity) 这里是别人对 AB 测试的流程分析，实现的方式是使用了 R
