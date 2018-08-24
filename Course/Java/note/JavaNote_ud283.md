@@ -1,6 +1,6 @@
 **目录**
 
-#### 
+[TOC]
 
 课程是 `Udacity` 中 `Java OOP(ud283)` 的课程，课程的主题涉及到 `Java` 的高级知识：
 
@@ -306,7 +306,6 @@ public static void main(String [] args){
   }
   ```
 
-  
 
 ### 1.4.5 访问修饰符
 

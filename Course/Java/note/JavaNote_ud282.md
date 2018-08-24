@@ -1,6 +1,6 @@
 **目录**
 
-[toc]
+[TOC]
 
 ## 1 Java 基本语法规范
 
@@ -22,14 +22,14 @@ long muchMore = 2147483647 * 10000000;
 
 // string
 String fullText = "(b) WWII ended 1945";
-char anwser = b;
+char anwser = 'b';
 
 // Boolean
 boolean fact = true;
 ```
 
 ## 3 Java 数据运算
-在进行数据运算时，需要注意除法运算——有小数点的时候进行除法运算得到的结果才会有小数点，否则会整数数据。另外数据运算顺序符合一般规则
+在进行数据运算时，需要注意除法运算——有小数点的时候进行除法运算得到的结果才会有小数点，否则是整数数据。另外数据运算顺序符合一般规则
 
 ```{Java}
 double div = 5 / 2; // output is 2
