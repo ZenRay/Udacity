@@ -1,4 +1,4 @@
-[toc]
+[TOC]
 
 # 文件说明
 该内容主要是针对答疑问题过程中找到的比较实用性的关于数据可视化部分
@@ -83,3 +83,45 @@ print(result.summary2())
 
 # 具有数据值的字符串转换—— `eval` 使用
 该方法是对那类将数据值、数据表达式以及其他数据类型数据被字符串包裹时，可以使用该方法进行数据转换。⚠️注意某些字符串转换会报错：对于某些 `Identifer` 如果没有使用另外的引号包裹可能报错——`eval("{'a':false}")`、`eval("{'b':null}")`等可能出现报 `NameError` 错误。解决方式时对相应的数据添加引号（强制变更为字符串）——`eval("{'a':'false'}")`、`eval("{'b':'null'}")`
+
+# `Numpy` 数据类型的定制化
+
+**思路：**
+
+Numpy 的数据类型可以通过 dtype 进行定制化处理，它可以确定基础数据类型，数据大小，数据序列，以及数据的字段名。用法上如下：
+
+```python
+>>> dt = np.dtype('>i4')
+>>> dt.byteorder
+'>'
+>>> dt.itemsize
+4
+>>> dt.name
+'int32'
+>>> dt.type is np.int32
+True
+
+# 上面的方法只是针对数据，进行了定制化数据类型。下面将定制化一个字段名，这样产生一个统一的数据字段名称
+>>> dt = np.dtype([('age',np.int8)]) 
+>>> a = np.array([(10,),(20,),(30,)], dtype = dt)
+>>> print(a)
+array([(10,), (20,), (30,)], dtype=[('age', 'i1')])
+
+>>> a["age"]
+array([10, 20, 30], dtype=int8)
+
+# 下面是对定制了一个 student 的数据
+>>> student = np.dtype([('name','S20'), ('age', 'i1'), ('marks', 'f4')]) 
+>>> a = np.array([('abc', 21, 50),('xyz', 18, 75)], dtype = student) 
+>>> a
+array([(b'abc', 21, 50.), (b'xyz', 18, 75.)],
+      dtype=[('name', 'S20'), ('age', 'i1'), ('marks', '<f4')])
+>>> a["name"]
+array([b'abc', b'xyz'], dtype='|S20')
+```
+
+**参考：**
+
+1. [NumPy Data Types](https://www.tutorialspoint.com/numpy/numpy_data_types.htm)
+2. [Data type objects (dtype)](https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.dtypes.html)
+
